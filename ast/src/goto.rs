@@ -26,7 +26,7 @@ impl Traverse for Label {}
 
 impl fmt::Display for Label {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "::{}::", self.0)
+        write!(f, "--::{}::", self.0)
     }
 }
 
@@ -47,6 +47,6 @@ impl LocalRw for Goto {}
 
 impl fmt::Display for Goto {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "goto {}", self.0 .0)
+        write!(f, "--goto {}", self.0 .0)
     }
 }
