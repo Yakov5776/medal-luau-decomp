@@ -1,4 +1,3 @@
-#![feature(let_chains)]
 
 use cfg::{block::BranchType, function::Function};
 use itertools::Itertools;

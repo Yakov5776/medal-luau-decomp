@@ -1,5 +1,4 @@
 #![feature(box_patterns)]
-#![feature(let_chains)]
 
 use ast::{
     local_declarations::LocalDeclarer, name_locals::name_locals, replace_locals::replace_locals,
