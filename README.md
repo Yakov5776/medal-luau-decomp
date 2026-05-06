@@ -34,3 +34,10 @@ local Options = {
 }
 synsaveinstance(Options)
 ```
+
+## Web interface
+
+Start the web server and open `http://localhost:3000/` in a browser.
+
+- Paste base64-encoded Luau bytecode into the left editor.
+- Click **Decompile** to view decompiled source in the right editor.
