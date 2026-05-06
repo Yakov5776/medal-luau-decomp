@@ -1,13 +1,13 @@
-use std::io;
-use std::net::SocketAddr;
 use axum::{
-    body::{Body, Bytes}, 
-    http::StatusCode, 
-    response::{IntoResponse, Response}, 
-    routing::{get, post}, 
-    Router
+    Router,
+    body::{Body, Bytes},
+    http::StatusCode,
+    response::{IntoResponse, Response},
+    routing::{get, post},
 };
 use base64::prelude::*;
+use std::io;
+use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tracing::info;
 
@@ -58,7 +58,7 @@ async fn main() -> Result<(), io::Error> {
     let addr: SocketAddr = BIND_ADDR.parse().expect("Invalid address");
     let listener = TcpListener::bind(addr).await?;
     info!("🚀 Listening on {}", listener.local_addr()?);
-    
+
     axum::serve(listener, app).await
 }
 
@@ -69,9 +69,9 @@ async fn decompile(body: Bytes) -> Result<String, Error> {
 
     // 2. CRITICAL FIX: Move heavy CPU work to a blocking thread.
     // This prevents the web server from freezing while decompiling.
-    let decompiled = tokio::task::spawn_blocking(move || {
-        luau_lifter::decompile_bytecode(&bytecode, 203)
-    }).await?; // .await? handles the JoinError
+    let decompiled =
+        tokio::task::spawn_blocking(move || luau_lifter::decompile_bytecode(&bytecode, 203))
+            .await?; // .await? handles the JoinError
 
     info!("Successfully decompiled bytecode.");
     Ok(decompiled)
@@ -184,5 +184,9 @@ async fn index() -> impl IntoResponse {
 </body>
 </html>"#;
 
-    (StatusCode::OK, [("content-type", "text/html; charset=utf-8")], Body::from(PAGE))
+    (
+        StatusCode::OK,
+        [("content-type", "text/html; charset=utf-8")],
+        Body::from(PAGE),
+    )
 }
